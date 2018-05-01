@@ -1,0 +1,12 @@
+Explain in detail how APIs
+(shm_open(),ftruncate(),mmap(),shm_unlink()) work in a separate text file.
+
+shm_open() : establishes a connection between an object in shared memory and a file desc.  It does this by creating an open file description that references the object in shared memory and also the file descriptor for that object.
+shm fd = shm open(name, O CREAT | O RDRW, 0666) is used in this program.  this means the shared-memory object is "name" and the file should be created open to reading and writing.  The last parameter is for permissions
+
+ftruncate() : Configures the size of the object in bytes.  
+ftruncate(shm_fd, SIZE); is called in this program with SIZE = 4096.  This means shm_fd will be 4096 bytes.
+
+mmap() : creates a memory-mapped file.  This returns a pointer to the file for accessing the shared memory object it contains. 
+
+shm_unlink() : removes the shared-memory segment after it has been accessed.  In this program  shm_unlink() refers to the process 3.18 as the "Consumer" proccess accessing it.

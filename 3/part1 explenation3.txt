@@ -1,0 +1,9 @@
+Explain in detail how APIs (pipe(), write(),
+close()) work in a separate file.
+
+pipe() : This process acts as a connection between two processes.  A pipe is an area of main memory treated as a "virtual file".  In this program we use fork() to create two processes.  After identifying the child and the parent we
+can close the reading end of the parent and the writing end of the child.  This means the parent can feed information to the child process via write() and the child will read it with read().
+
+write() : write is used to write information to an object.  In this program we call.  write(fd[WRITE_END], write_msg, strlen(write_msg)+1) .  This means we are writing the the write end of the pipe fd we created earlier.  We then give it what to write: write_msg, and then give it the length of what it is writing.
+
+close() : This will close an existing file descriptor.  It is used in this program to close the ends of the pipe when they are no longer needed.  Close is important as a part of preventing memory leaks and tying up loose ends.

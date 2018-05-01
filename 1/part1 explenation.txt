@@ -1,0 +1,8 @@
+Explain in detail how APIs (fork(), execlp(),wait()) work in a
+separate file
+
+fork() : This creates a child process.  in this program, pid is being set by both the parent and the child.  
+
+execlp() : This overwrites a process with a different one based on the argument.  In this program execlp("/bin/ls","ls",NULL) means that the child is overwritten with ls and when the program is run it executes ls as seen.  There will be no return unless is error is generated.  It is important to note that this does not create a new process, but merely overlay the address space with a new program.
+ 
+wait() : This is used so the parent will wait until the child is terminated before continuing.  In this program, if the child has not been created, the parent program will wait until the child program has been created and executes before continuing.  

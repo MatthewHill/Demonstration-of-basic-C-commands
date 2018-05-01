@@ -1,0 +1,14 @@
+This document is to describe the source code for shm_fileuploader.c and shm_filedownloader.c
+
+shm_fileuploader:  I started out by initializing my shared memory object.  I then truncated it to the size 10485760 which is 10mb in binary.
+When i initialized it I made sure to put it in "mrhill9_filesharing" to ensure proper access.  I created a struct for filesharing that contains a flag, size, and max filecontent array.
+I create a member of this struct *ptr.  I then use mmap() to map ptr.  I then ask the user for the name of the file they would like to upload using scanf().  I confirm the file that they have selected and initialize a file desc for it.
+I use an fopen() on the file and check if it exists.  If it does exist, I measure the size using fseek() and ftell().  I then use frewind() to make sure
+that I am at the beginning of the file.  I update my struct to show that the flag is 1, and the size matches the file I'm uploading.  I then use fread() to put the file contents into a buffer.
+I close the file and the program ends.  
+
+shm_filedownloader:  I redefine my struct and SIZE at the beginning of the file to match the shm_fileuploader parameters.  A lot of code is borrowed from the shm_fileuploader.c file.  It only starts to get different when I'm using fopen() with the writing parameter instead
+of using the reading parameter. This creates a new empty file for me to later store the downloaded information into. If the file exists, I print that it is available.  I then call on the files size using the struct.  I use fwrite to retieve the buffer from shared memory and write it to my newly created file, then close the file.
+if the pointer flag on my struct does not exist, then the file is not available in shared memory and I indicate that with a print function. Lastly I unlink the shared memory.
+
+Both these files compile from the same make file.  I tested them with an example file that I also included in the folder.

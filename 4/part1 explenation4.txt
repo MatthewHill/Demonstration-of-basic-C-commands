@@ -1,0 +1,10 @@
+ Record the values of pid at lines A,B,C, and D.
+ A: 0
+ B: 27226
+ C: 27226
+ D: 27225
+Explain in detail how APIs (getpid() and fprintf) works in a separate file
+
+getpid() : returns the process ID of the calling process.  In the form of pid_t
+
+fprintf() : puts an output into a named output stream.  fprintf(stderr, "Fork Failed"); is used in this program so that "Fork Failed" will be printed to stderr rather than standard output stream like printf().
